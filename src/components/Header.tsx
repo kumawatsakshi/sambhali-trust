@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Menu, X, Heart, Phone, Sparkles, Globe, ShieldAlert } from 'lucide-react';
+import { Menu, X, Heart, Globe, ShieldAlert } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface HeaderProps {
   currentPage: string;
   onNavigate: (page: string) => void;
   onOpenDonate: () => void;
-  currency?: { code: string; symbol: string };
+  currency?: { code: string; symbol: symbol | string };
   onChangeCurrency?: (code: string) => void;
 }
 
@@ -44,69 +44,6 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className="sticky top-0 z-50 w-full shadow-xs">
-      {/* Top Announcement Ticker Bar */}
-      <div className="bg-[#5c1b1c] text-amber-100 text-[11px] py-1.5 px-4 overflow-hidden border-b border-amber-900/40">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap">
-            <span className="bg-[#802829] text-amber-300 font-bold px-2 py-0.5 rounded text-[10px] uppercase tracking-widest shrink-0 flex items-center gap-1">
-              <Sparkles className="w-3 h-3 text-amber-300 animate-pulse" />
-              HOTLINE
-            </span>
-            <span className="text-amber-100/90 font-medium">
-              Nirbhaya 24/7 Crisis Helpline:{' '}
-              <a
-                href="tel:+919828088880"
-                className="font-bold text-amber-200 underline hover:text-white"
-              >
-                +91 98280 88880
-              </a>
-              {' • '}Over 77,800 Women & Children Empowered in Rajasthan
-            </span>
-          </div>
-
-          <div className="hidden sm:flex items-center gap-4 text-[11px] shrink-0 font-medium">
-            <button
-              onClick={() => handleNavClick('contact')}
-              className="hover:text-white transition-colors flex items-center gap-1"
-            >
-              <Phone className="w-3 h-3 text-amber-300" />
-              <span>Emergency Refuge</span>
-            </button>
-            <span className="text-amber-700">•</span>
-            {/* Currency Selector Dropdown */}
-            <div className="relative">
-              <button
-                onClick={() => setShowCurrencyDropdown(!showCurrencyDropdown)}
-                className="hover:text-white transition-colors flex items-center gap-1 bg-black/20 hover:bg-black/40 px-2.5 py-0.5 rounded text-[11px]"
-              >
-                <Globe className="w-3 h-3 text-amber-300" />
-                <span>{currency.code} ({currency.symbol})</span>
-              </button>
-
-              {showCurrencyDropdown && (
-                <div className="absolute right-0 mt-1 w-28 bg-white text-gray-800 rounded-xl shadow-xl border border-amber-200 py-1 z-50 text-xs">
-                  {currencies.map((c) => (
-                    <button
-                      key={c.code}
-                      onClick={() => {
-                        onChangeCurrency && onChangeCurrency(c.code);
-                        setShowCurrencyDropdown(false);
-                      }}
-                      className={`w-full text-left px-3 py-1.5 hover:bg-amber-50 font-medium flex items-center justify-between ${
-                        currency.code === c.code ? 'text-[#802829] font-bold bg-amber-50' : ''
-                      }`}
-                    >
-                      <span>{c.code}</span>
-                      <span className="text-gray-400">{c.symbol}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Main Header Container */}
       <div className="bg-white/95 backdrop-blur-md border-b border-amber-200/60 transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 py-3 flex items-center justify-between gap-4">
@@ -159,6 +96,37 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Action Header Items */}
           <div className="hidden sm:flex items-center gap-3">
+            {/* Currency Selector */}
+            <div className="relative">
+              <button
+                onClick={() => setShowCurrencyDropdown(!showCurrencyDropdown)}
+                className="hover:text-[#802829] text-gray-700 transition-colors flex items-center gap-1.5 bg-amber-50 hover:bg-amber-100 border border-amber-200/80 px-3 py-2 rounded-full text-xs font-bold"
+              >
+                <Globe className="w-3.5 h-3.5 text-[#802829]" />
+                <span>{currency.code} ({currency.symbol})</span>
+              </button>
+
+              {showCurrencyDropdown && (
+                <div className="absolute right-0 mt-1 w-28 bg-white text-gray-800 rounded-xl shadow-xl border border-amber-200 py-1 z-50 text-xs">
+                  {currencies.map((c) => (
+                    <button
+                      key={c.code}
+                      onClick={() => {
+                        onChangeCurrency && onChangeCurrency(c.code);
+                        setShowCurrencyDropdown(false);
+                      }}
+                      className={`w-full text-left px-3 py-1.5 hover:bg-amber-50 font-medium flex items-center justify-between ${
+                        currency.code === c.code ? 'text-[#802829] font-bold bg-amber-50' : ''
+                      }`}
+                    >
+                      <span>{c.code}</span>
+                      <span className="text-gray-400">{c.symbol}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <a
               href="tel:+919828088880"
               className="hidden xl:inline-flex items-center gap-1.5 text-[11px] font-bold text-[#802829] bg-amber-50 hover:bg-amber-100 border border-amber-200/80 px-3.5 py-2 rounded-full transition-colors"

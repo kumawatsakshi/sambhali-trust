@@ -67,7 +67,6 @@ export default function App() {
         return (
           <ContactPage
             onOpenDonate={handleOpenDonate}
-            onOpenAi={() => {}}
           />
         );
       case 'home':

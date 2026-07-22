@@ -3,10 +3,9 @@ import { MapPin, PhoneCall, Mail, Clock, Send, CheckCircle2, ShieldCheck, Heart,
 
 interface ContactPageProps {
   onOpenDonate: () => void;
-  onOpenAi: () => void;
 }
 
-export const ContactPage: React.FC<ContactPageProps> = ({ onOpenDonate, onOpenAi }) => {
+export const ContactPage: React.FC<ContactPageProps> = ({ onOpenDonate }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('General Inquiry');
